@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroWorld - Produk Elektronik Terlengkap</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variabel CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Full Width */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .page-title {
+            text-align: center;
+            margin: 20px 0;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+        }
+
+        /* Filter dan Pencarian */
+        .product-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .filter-options select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* Grid Produk */
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            display: none; /* Sembunyikan header produk karena tidak berfungsi tanpa JS */
+        }
+
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-options button {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .view-options button.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #777;
+        }
+
+        .discount {
+            background: var(--secondary-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-to-cart {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            flex: 1;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--primary-color);
+        }
+
+        .wishlist-btn {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .wishlist-btn:hover {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        /* Artikel Section */
+        .articles-section {
+            margin-top: 60px;
+            padding: 30px 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .articles-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .article-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 20px;
+        }
+
+        .article-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .article-excerpt {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer Full Width */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            text-align: left;
+            flex: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .creation-date {
+            text-align: right;
+            flex: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .product-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .filter-options {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .copyright, .creation-date {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-laptop-code fa-2x"></i>
+                <h1>ElectroWorld</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="produk.html" class="active"><i class="fas fa-box"></i> Produk</a></li>             
+                    <li><a href="profil.html"><i class="fas fa-info-circle"></i> Profil</a></li>
+                    <li>
+                        <a href="keranjang.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">3</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Katalog Produk Elektronik</h1>
+        
+        <div class="product-controls">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Cari produk elektronik...">
+                <button id="search-button"><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="filter-options">
+                <select id="category-filter">
+                    <option value="all">Semua Kategori</option>
+                    <option value="televisi">Televisi & Audio</option>
+                    <option value="kulkas">Kulkas & Freezer</option>
+                    <option value="mesin-cuci">Mesin Cuci</option>
+                    <option value="ac">AC & Pendingin</option>
+                    <option value="komputer">Komputer & Laptop</option>
+                    <option value="smartphone">Smartphone & Tablet</option>
+                </select>
+                
+                <select id="sort-option">
+                    <option value="newest">Urutkan: Terbaru</option>
+                    <option value="price-low">Urutkan: Harga Terendah</option>
+                    <option value="price-high">Urutkan: Harga Tertinggi</option>
+                    <option value="discount">Urutkan: Diskon Terbesar</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="products-grid">
+            <!-- Produk 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="SmartTV4K55.webp" alt="Smart TV 4K 55 inch">
+                    <span class="product-badge">New</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Televisi & Audio</div>
+                    <h3 class="product-title">Smart TV 4K 55"</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(42)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 8.499.000</span>
+                        <span class="original-price">Rp 9.999.000</span>
+                        <span class="discount">15%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="Kulkas 2 Pintu 320L.webp" alt="Kulkas 2 Pintu 320L">
+                    <span class="product-badge">Sale</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Kulkas & Freezer</div>
+                    <h3 class="product-title">Kulkas 2 Pintu 320L</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(28)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 5.999.000</span>
+                        <span class="original-price">Rp 6.499.000</span>
+                        <span class="discount">8%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Laptop Gaming RTX 3060">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Komputer & Laptop</div>
+                    <h3 class="product-title">Laptop Gaming RTX 3060</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(65)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 15.799.000</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Smartphone Flagship 128GB">
+                    <span class="product-badge">Hot</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Smartphone & Tablet</div>
+                    <h3 class="product-title">Smartphone Flagship 128GB</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(87)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 6.499.000</span>
+                        <span class="original-price">Rp 7.299.000</span>
+                        <span class="discount">11%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Headphone Wireless Premium">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Televisi & Audio</div>
+                    <h3 class="product-title">Headphone Wireless Premium</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(34)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 1.299.000</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="Mesin Cuci Front Loading 9kg.avif" alt="Mesin Cuci Front Loading 9kg">
+                    <span class="product-badge">Sale</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Mesin Cuci</div>
+                    <h3 class="product-title">Mesin Cuci Front Loading 9kg</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(29)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 4.799.000</span>
+                        <span class="original-price">Rp 5.499.000</span>
+                        <span class="discount">13%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="AC Inverter 1 PK.webp" alt="AC Inverter 1 PK">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">AC & Pendingin</div>
+                    <h3 class="product-title">AC Inverter 1 PK</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(41)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 3.999.000</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produk 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="Monitor Gaming 27144Hz.webp" alt="Monitor Gaming 27 inch 144Hz">
+                    <span class="product-badge">New</span>
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Komputer & Laptop</div>
+                    <h3 class="product-title">Monitor Gaming 27" 144Hz</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(56)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="current-price">Rp 4.299.000</span>
+                        <span class="original-price">Rp 4.799.000</span>
+                        <span class="discount">10%</span>
+                    </div>
+                    <div class="product-actions">
+                        <button class="add-to-cart">
+                            <i class="fas fa-shopping-cart"></i> Keranjang
+                        </button>
+                        <button class="wishlist-btn"><i class="far fa-heart"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Artikel Section -->
+        <section class="articles-section">
+            <h2 class="articles-title">Artikel Terkait Produk Elektronik</h2>
+            
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Tips Memilih Elektronik">
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">5 Tips Memilih Elektronik Rumah Tangga yang Tepat</h3>
+                        <p class="article-excerpt">Memilih elektronik rumah tangga tidak boleh sembarangan. Pelajari tips memilih yang tepat sesuai kebutuhan dan budget Anda.</p>
+                        <a href="artikel.html" class="read-more">Baca selengkapnya →</a>
+
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="https://images.unsplash.com/photo-1468436139062-f60a71c5c892?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Teknologi Terbaru">
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Teknologi Terbaru di Dunia Elektronik 2025</h3>
+                        <p class="article-excerpt">Tahun 2025 menghadirkan inovasi teknologi elektronik yang menarik. Simak perkembangan terbaru yang akan mengubah gaya hidup Anda.</p>
+                        <a href="arikel2.html" class="read-more">Baca selengkapnya →</a>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-image">
+                        <img src="Cara Merawat Peralatan Elektronik agar Awet.jpeg" alt="Perawatan Elektronik">
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Cara Merawat Peralatan Elektronik agar Awet</h3>
+                        <p class="article-excerpt">Perawatan yang tepat dapat memperpanjang usia peralatan elektronik Anda. Ikuti panduan praktis untuk merawat berbagai jenis elektronik.</p>
+                        <a href="arikel3.html" class="read-more">Baca selengkapnya →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="copyright">
+                    <p>&copy; 2025 ElectroWorld - Toko Elektronik Terpercaya. All Rights Reserved.</p>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/yass_handsore?igsh=b25zaXpwbWNoaHh3"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="creation-date">
+                    <p>Dibuat pada: 2 September 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

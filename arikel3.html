@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara Merawat Peralatan Elektronik agar Awet - ElectroWorld</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variabel CSS */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Full Width */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: white;
+            padding: 15px 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 10px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a i {
+            margin-right: 5px;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .article-header {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .article-title {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .article-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .article-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .article-content h3 {
+            color: var(--primary-color);
+            margin: 30px 0 15px;
+        }
+
+        .article-content ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-button:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer Full Width */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            text-align: left;
+            flex: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex: 1;
+            margin: 15px 0;
+            display: none; /* Sembunyikan social links di artikel */
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .creation-date {
+            text-align: right;
+            flex: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .article-title {
+                font-size: 1.8rem;
+            }
+            
+            .article-image {
+                height: 250px;
+            }
+            
+            .footer-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .copyright, .creation-date {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-laptop-code fa-2x"></i>
+                <h1>ElectroWorld</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="produk.html"><i class="fas fa-box"></i> Produk</a></li>             
+                    <li><a href="profil.html"><i class="fas fa-info-circle"></i> Profil</a></li>
+                    <li>
+                        <a href="keranjang.html" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-count">3</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="article-header">
+            <h1 class="article-title">Cara Merawat Peralatan Elektronik agar Awet</h1>
+            <div class="article-meta">
+                <span><i class="far fa-calendar"></i> 10 September 2025</span> | 
+                <span><i class="far fa-user"></i> Tim Teknis ElectroWorld</span>
+            </div>
+        </div>
+
+        <div class="article-image">
+            <img src="Cara Merawat Peralatan Elektronik agar Awet.jpeg" alt="Perawatan Elektronik">
+        </div>
+
+        <div class="article-content">
+            <p>Peralatan elektronik merupakan investasi yang tidak murah, sehingga merawatnya dengan benar sangat penting untuk memastikan masa pakai yang panjang dan kinerja yang optimal. Perawatan yang tepat tidak hanya menghemat uang dalam jangka panjang, tetapi juga mengurangi dampak lingkungan dengan mengurangi limbah elektronik. Artikel ini akan memberikan panduan praktis untuk merawat berbagai jenis peralatan elektronik rumah tangga.</p>
+            
+            <h3>1. Perawatan Televisi dan Layar</h3>
+            <p>Televisi dan monitor modern membutuhkan perawatan khusus untuk menjaga kualitas gambar dan masa pakainya:</p>
+            <ul>
+                <li>Bersihkan layar dengan kain microfiber yang lembut dan cairan pembersih khusus LCD/LED</li>
+                <li>Hindari menekan layar dengan tekanan berlebihan</li>
+                <li>Jangan menempatkan TV di tempat yang terkena sinar matahari langsung</li>
+                <li>Berikan jarak minimal 10 cm dari dinding untuk sirkulasi udara yang baik</li>
+                <li>Gunakan stabilizer atau UPS untuk melindungi dari fluktuasi tegangan listrik</li>
+            </ul>
+            
+            <h3>2. Perawatan Kulkas dan Freezer</h3>
+            <p>Kulkas adalah salah satu perangkat elektronik yang bekerja terus-menerus, sehingga perawatannya sangat penting:</p>
+            <ul>
+                <li>Bersihkan kumparan kondensor di belakang kulkas setiap 6 bulan</li>
+                <li>Periksa dan bersihkan seal pintu secara berkala untuk memastikan pintu tertutup rapat</li>
+                <li>Jangan mengisi kulkas terlalu penuh karena menghambat sirkulasi udara</li>
+                <li>Bersihkan bagian dalam dengan larutan soda kue dan air untuk menghilangkan bau</li>
+                <li>Lakukan defrost secara teratur jika kulkas Anda bukan model no-frost</li>
+            </ul>
+            
+            <h3>3. Perawatan Mesin Cuci</h3>
+            <p>Agar mesin cuci tetap berfungsi optimal dan tidak menimbulkan bau tidak sedap:</p>
+            <ul>
+                <li>Bersihkan filter dan dispenserdetergent secara berkala</li>
+                <li>Jangan membebani mesin cuci melebihi kapasitas yang direkomendasikan</li>
+                <li>Biarkan pintu mesin cuci terbuka setelah digunakan untuk mencegah tumbuhnya jamur</li>
+                <li>Bersihkan drum dengan larutan cuka putih atau pembersih khusus setiap 2-3 bulan</li>
+                <li>Periksa selang air dan koneksi listrik secara rutin</li>
+            </ul>
+            
+            <h3>4. Perawatan AC</h3>
+            <p>AC yang terawat tidak hanya lebih awet tetapi juga lebih hemat energi:</p>
+            <ul>
+                <li>Bersihkan filter AC setiap 2 minggu selama musim panas</li>
+                <li>Lakukan servis profesional setahun sekali untuk membersihkan evaporator dan kondensor</li>
+                <li>Pastikan unit outdoor tidak terhalang oleh tanaman atau debris</li>
+                <li>Gunakan timer atau fitur eco mode untuk mengurangi beban kerja</li>
+                <li>Tutup jendela dan pintu ruangan saat AC menyala untuk efisiensi energi</li>
+            </ul>
+            
+            <h3>5. Perawatan Umum untuk Semua Perangkat</h3>
+            <p>Beberapa tips perawatan umum yang berlaku untuk hampir semua perangkat elektronik:</p>
+            <ul>
+                <li>Hindari paparan langsung terhadap sinar matahari dan sumber panas</li>
+                <li>Jauhkan dari area dengan kelembaban tinggi</li>
+                <li>Gunakan pelindung lonjakan arus (surge protector) untuk perangkat penting</li>
+                <li>Baca buku panduan pengguna untuk instruksi perawatan spesifik</li>
+                <li>Lakukan update firmware/software secara berkala untuk kinerja optimal</li>
+            </ul>
+            
+            <p>Dengan menerapkan tips perawatan di atas, peralatan elektronik Anda tidak hanya akan lebih awet tetapi juga bekerja lebih efisien, menghemat energi, dan mengurangi biaya perbaikan. Perawatan preventif selalu lebih baik dan lebih murah daripada perbaikan setelah kerusakan terjadi.</p>
+            
+            <a href="produk.html" class="back-button"><i class="fas fa-arrow-left"></i> Kembali ke Halaman Produk</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <div class="copyright">
+                    <p>&copy; 2025 ElectroWorld - Toko Elektronik Terpercaya. All Rights Reserved.</p>
+                </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="creation-date">
+                    <p>Dibuat pada: 2 September 2025</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
